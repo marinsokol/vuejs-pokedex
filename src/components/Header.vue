@@ -2,10 +2,10 @@
   <div class="header">
     <div class="logo">
       <img src="../assets/Ultra-Ball-64.png" />
-      POKEDEX
+      <span class="text">POKEDEX</span>
     </div>
     <input v-on:input="handleInput" v-on:change="handleInput">
-    <div>Registration</div>
+    <div class="text">Registration</div>
   </div>
 </template>
 
@@ -53,5 +53,15 @@
     border-radius: 4px;
     box-sizing: border-box;
     font-size: 18px;
+  }
+  @media only screen and (max-width: 768px) {
+    /* For mobile phones: */
+    input {
+      width: 100%;
+    }
+
+    .text {
+      display: none;
+    }
   }
 </style>

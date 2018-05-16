@@ -125,4 +125,11 @@
   .energy.fighting {
     background-position: -50px -25px
   }
+
+  @media only screen and (max-width: 768px) {
+    /* For mobile phones: */
+    .card {
+      width: 50%;
+    }
+  }
 </style>
