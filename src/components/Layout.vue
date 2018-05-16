@@ -31,7 +31,7 @@
           .then(data => {
             this.pokemons = data.cards
           })
-      }, 100)
+      }, 10)
     },
     components: {
       Header,

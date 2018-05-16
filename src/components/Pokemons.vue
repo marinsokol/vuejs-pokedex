@@ -6,6 +6,16 @@
         <p>{{pokemon.name}}</p>
         <p>Number: {{pokemon.number}}</p>
         <p>HP: {{pokemon.hp}}</p>
+        <p>Attacks</p>
+        <div v-for="attack in pokemon.attacks" v-bind:key="attack.name" class="attacks">
+          <i
+            class="energy"
+            v-for="cost in attack.cost"
+            v-bind:key="cost"
+            v-bind:class="cost.toLowerCase()"
+          ></i>
+          {{attack.name}}
+        </div>
         <p v-if="pokemon.weaknesses">Weaknesses</p>
         <div v-for="week in pokemon.weaknesses" v-bind:key="week.type" class="weaknesses">
           <i class="energy" v-bind:class="week.type.toLowerCase()"></i>
@@ -36,7 +46,7 @@
 
   .card {
     position: relative;
-    width: 10%;
+    width: 20%;
     float: left;
   }
 
@@ -67,6 +77,12 @@
   p {
     margin: 0;
     margin-top: 15px;
+  }
+
+  .attacks {
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .weaknesses {
