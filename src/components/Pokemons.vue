@@ -6,7 +6,7 @@
         <p>{{pokemon.name}}</p>
         <p>Number: {{pokemon.number}}</p>
         <p>HP: {{pokemon.hp}}</p>
-        <p>Attacks</p>
+        <p v-if="pokemon.attacks">Attacks</p>
         <div v-for="attack in pokemon.attacks" v-bind:key="attack.name" class="attacks">
           <i
             class="energy"
@@ -71,7 +71,8 @@
     position: absolute;
     left: 50%;
     top: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -48%);
+    padding-top: 20px;
   }
 
   p {
@@ -96,6 +97,7 @@
     width: 25px;
     height: 25px;
     display: inline-block;
+    margin-right: 5px;
   }
 
   .energy.grass {

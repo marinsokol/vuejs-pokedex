@@ -1,11 +1,15 @@
 <template>
   <div class="header">
     <div class="logo">
-      <img src="../assets/Ultra-Ball-64.png" />
+      <img src="../assets/Ultra-Ball-64.png"/>
       <span class="text">POKEDEX</span>
     </div>
     <input v-on:input="handleInput" v-on:change="handleInput">
-    <div class="text">Registration</div>
+    <div class="navigation">
+      <div>Favourites</div>
+      |
+      <div>Registration</div>
+    </div>
   </div>
 </template>
 
@@ -54,14 +58,34 @@
     box-sizing: border-box;
     font-size: 18px;
   }
+
+  .navigation {
+    display: flex;
+    width: 180px;
+    justify-content: space-between;
+  }
+
   @media only screen and (max-width: 768px) {
     /* For mobile phones: */
+    .header {
+      flex-direction: column;
+    }
+
+    img {
+      width: 40px;
+      height: 40px;
+    }
+
     input {
       width: 100%;
     }
 
-    .text {
-      display: none;
+    .logo {
+      margin-bottom: 10px;
+    }
+
+    .navigation {
+      margin-top: 10px;
     }
   }
 </style>
