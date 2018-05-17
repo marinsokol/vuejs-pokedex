@@ -6,21 +6,25 @@
         <p>{{pokemon.name}}</p>
         <p>Number: {{pokemon.number}}</p>
         <p>HP: {{pokemon.hp}}</p>
-        <p v-if="pokemon.attacks">Attacks</p>
-        <div v-for="attack in pokemon.attacks" v-bind:key="attack.name" class="attacks">
-          <i
-            class="energy"
-            v-for="cost in attack.cost"
-            v-bind:key="cost"
-            v-bind:class="cost.toLowerCase()"
-          ></i>
-          {{attack.name}}
-        </div>
-        <p v-if="pokemon.weaknesses">Weaknesses</p>
-        <div v-for="week in pokemon.weaknesses" v-bind:key="week.type" class="weaknesses">
-          <i class="energy" v-bind:class="week.type.toLowerCase()"></i>
-          {{week.value}}
-        </div>
+        <p v-for="type in pokemon.types" v-bind:key="type" class="attacks">
+          <i class="energy" v-bind:class="type.toLowerCase()"></i>
+          {{type}}
+        </p>
+        <!--<p v-if="pokemon.attacks">Attacks</p>-->
+        <!--<div v-for="attack in pokemon.attacks" v-bind:key="attack.name" class="attacks">-->
+        <!--<i-->
+        <!--class="energy"-->
+        <!--v-for="cost in attack.cost"-->
+        <!--v-bind:key="cost"-->
+        <!--v-bind:class="cost.toLowerCase()"-->
+        <!--&gt;</i>-->
+        <!--{{attack.name}}-->
+        <!--</div>-->
+        <!--<p v-if="pokemon.weaknesses">Weaknesses</p>-->
+        <!--<div v-for="week in pokemon.weaknesses" v-bind:key="week.type" class="weaknesses">-->
+        <!--<i class="energy" v-bind:class="week.type.toLowerCase()"></i>-->
+        <!--{{week.value}}-->
+        <!--</div>-->
       </div>
     </div>
   </div>
@@ -71,8 +75,7 @@
     position: absolute;
     left: 50%;
     top: 50%;
-    transform: translate(-50%, -48%);
-    padding-top: 20px;
+    transform: translate(-50%, -50%);
   }
 
   p {

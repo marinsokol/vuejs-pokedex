@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Header v-bind:search="search"/>
+    <Header v-bind:search="search" v-bind:types="types"/>
     <Pokemons v-bind:pokemons="pokemons"/>
   </div>
 </template>
@@ -14,7 +14,12 @@
     name: 'layout',
     data() {
       return {
-        pokemons: []
+        pokemons: [],
+        types: [''],
+        searchData: {
+          name: '',
+          types: ''
+        }
       }
     },
     created() {
@@ -23,13 +28,23 @@
         .then(data => {
           this.pokemons = data.cards
         })
+      fetch('https://api.pokemontcg.io/v1/types')
+        .then(res => res.json())
+        .then(data => {
+          this.types = [...data.types, ''].sort()
+        })
     },
     methods: {
-      search: _.debounce(function (name) {
-        fetch(`https://api.pokemontcg.io/v1/cards?name=${name}`)
+      search: _.debounce(function ({value, type}) {
+        const searchData = {
+          ...this.searchData,
+          [type]: value
+        }
+        fetch(`https://api.pokemontcg.io/v1/cards?name=${searchData.name}&types=${searchData.types}`)
           .then(res => res.json())
           .then(data => {
             this.pokemons = data.cards
+            this.searchData = searchData
           })
       }, 10)
     },
