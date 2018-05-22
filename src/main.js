@@ -1,23 +1,26 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import App from './App.vue'
-import Layout from './components/Layout.vue'
+import Home from './routes/Home/index.vue'
+import Favourites from './routes/Favourites/index.vue'
+import Auth from './routes/Auth/index.vue'
 
 Vue.config.productionTip = false
 
 const routes = [
-  { path: '/', component: Layout },
+  {path: '/', component: Home},
+  {path: '/favourites', component: Favourites},
+  {path: '/auth', component: Auth},
 ]
 
 const router = new VueRouter({
   mode: 'history',
-  routes // short for `routes: routes`
+  routes
 })
 
 Vue.use(VueRouter)
 new Vue({
-   el: '#app',
+  el: '#app',
   router,
-  // replace the content of <div id="app"></div> with App
   render: h => h(App)
 }).$mount('#app')

@@ -2,43 +2,34 @@
   <div class="header">
     <div class="logo">
       <img src="../assets/Ultra-Ball-64.png"/>
-      <span class="text">POKEDEX</span>
+      <span class="text">POKEDEX | {{user}} </span>
     </div>
-    <input v-on:input="handleInput" v-on:change="handleInput" name="name" placeholder="Pokemon name"/>
-    <select v-on:select="handleInput" v-on:change="handleInput" name="types">
-      <option selected="selected" disabled>Pokemon type</option>
-      <option v-for="type in types" v-bind:key="type">
-        {{type}}
-      </option>
-    </select>
     <div class="navigation">
-      <div>Favourites</div>
+      <router-link to="/" v-bind:class="{active: $route.path === '/'}">Home</router-link>
       |
-      <div>Registration</div>
+      <router-link to="/favourites" v-bind:class="{active: $route.path === '/favourites'}">Favourites</router-link>
+      |
+      <router-link v-if="!user" to="/auth" v-bind:class="{active: $route.path === '/auth'}">Login</router-link>
+      <a v-if="user" v-on:click="handleLogout">Logout</a>
     </div>
   </div>
 </template>
 
 <script>
+  import firebase from 'firebase/app'
+  import 'firebase/auth'
+
   export default {
-    name: 'vue-header',
+    name: "vue-header",
     props: {
-      types: {
-        type: Array
-      },
-      search: {
-        type: Function
-      }
+      user: String
     },
     methods: {
-      handleInput({target}) {
-        this.search({
-          value: target.value,
-          type: target.name
-        })
+      handleLogout: function () {
+        firebase.auth().signOut().catch(err => console.log(err))
       }
     }
-  }
+  };
 </script>
 
 <style scoped>
@@ -62,43 +53,23 @@
     padding-right: 10px;
   }
 
-  input, select {
-    width: 25%;
-    padding: 12px 20px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-    font-size: 18px;
-    height: 50px;
-  }
-
   .navigation {
     display: flex;
-    width: 180px;
+    width: 350px;
     justify-content: space-between;
+    font-size: 20px;
   }
 
-  @media only screen and (max-width: 768px) {
-    /* For mobile phones: */
-    .header {
-      flex-direction: column;
-    }
+  .navigation a {
+    text-decoration: none;
+    color: white;
+  }
 
-    img {
-      width: 40px;
-      height: 40px;
-    }
+  .navigation .active {
+    font-weight: bold;
+  }
 
-    input, select {
-      width: 100%;
-    }
-
-    .logo {
-      margin-bottom: 10px;
-    }
-
-    .navigation {
-      margin-top: 10px;
-    }
+  .navigation a {
+    cursor: pointer;
   }
 </style>
