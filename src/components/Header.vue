@@ -72,4 +72,24 @@
   .navigation a {
     cursor: pointer;
   }
+
+  @media only screen and (max-width: 768px) {
+    .header {
+      flex-direction: column;
+    }
+
+    .logo {
+      font-size: 16px;
+    }
+
+    .logo img {
+      display: none;
+    }
+
+    .navigation {
+      font-size: 12px;
+      justify-content: space-around;
+      padding-top: 10px;
+    }
+  }
 </style>
