@@ -8,9 +8,9 @@ import Auth from './routes/Auth/index.vue'
 Vue.config.productionTip = false
 
 const routes = [
-  {path: '/', component: Home},
-  {path: '/favourites', component: Favourites},
-  {path: '/auth', component: Auth},
+  { path: '/', component: Home },
+  { path: '/favourites', component: Favourites },
+  { path: '/auth', component: Auth },
 ]
 
 const router = new VueRouter({
