@@ -2,7 +2,7 @@
   <div class="container">
     <div class="input-wrap">
       <input v-on:input="handleInput" v-on:change="handleInput" name="name" placeholder="Pokemon name"/>
-      <select v-on:select="handleInput" v-on:change="handleInput" name="types">
+      <select v-model="searchData.types" v-on:select="handleInput" v-on:change="handleInput" name="types">
         <option selected="selected" disabled>Pokemon type</option>
         <option v-for="type in types" v-bind:key="type">
           {{type}}
@@ -78,6 +78,17 @@ export default {
         ...p,
         favourite: value.findIndex(v => v.id === p.id) !== -1
       }));
+    },
+    user: function(value) {
+      fetch(`${config.apiUrl}cards?types=${value.type}`)
+        .then(res => res.json())
+        .then(data => {
+          this.pokemons = data.cards;
+          this.searchData = {
+            ...this.searchData,
+            types: value.type
+          };
+        });
     }
   },
   methods: {

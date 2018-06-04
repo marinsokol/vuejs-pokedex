@@ -35,6 +35,14 @@
           <input v-on:input="handleRegistrationInput" v-on:change="handleRegistrationInput" name="password"
                  placeholder="Password" id="registration-password" type="password" class="validate">
         </div>
+        <div class="input-field">
+          <label for="registration-type">Favourite type:</label>
+          <select v-on:input="handleRegistrationInput" v-on:change="handleRegistrationInput" name="type" id="registration-type">
+            <option v-for="type in types" v-bind:key="type">
+              {{type}}
+            </option>
+          </select>
+        </div>
         <button v-on:click="handleRegistration">Register</button>
       </div>
     </div>
@@ -44,12 +52,14 @@
 <script>
 import firebase from "firebase/app";
 import "firebase/auth";
+import config from "../../config";
 
 export default {
   name: "Auth",
   data() {
     return {
       tab: "login",
+      type: [""],
       errors: {
         login: "",
         registration: ""
@@ -60,9 +70,17 @@ export default {
       },
       registration: {
         email: "",
-        password: ""
+        password: "",
+        type: ""
       }
     };
+  },
+  created() {
+    fetch(`${config.apiUrl}types`)
+      .then(res => res.json())
+      .then(data => {
+        this.types = [...data.types, ""].sort();
+      });
   },
   methods: {
     handleClick: function(tab) {
@@ -75,10 +93,18 @@ export default {
       };
     },
     handleRegistration: function() {
-      const { email, password } = this.registration;
+      const { email, password, type } = this.registration;
+      console.log(type);
       firebase
         .auth()
         .createUserWithEmailAndPassword(email, password)
+        .then(({ user }) =>
+          user
+            .updateProfile({
+              displayName: type
+            })
+            .catch(err => (this.errors.registration = err.message))
+        )
         .catch(err => (this.errors.registration = err.message));
     },
     handleLoginInput: function({ target }) {
@@ -149,6 +175,7 @@ export default {
 }
 
 .input-field input,
+.input-field select,
 button {
   width: 100%;
   padding: 12px 20px;

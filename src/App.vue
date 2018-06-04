@@ -28,7 +28,8 @@ export default {
     return {
       user: {
         uid: "",
-        email: ""
+        email: "",
+        type: ""
       },
       favourites: []
     };
@@ -39,14 +40,17 @@ export default {
   created() {
     firebase.auth().onAuthStateChanged(user => {
       this.loggedIn(user);
+      console.log(user);
       this.user = user
         ? {
             uid: user.uid,
-            email: user.email
+            email: user.email,
+            type: user.displayName
           }
         : {
             uid: "",
-            email: ""
+            email: "",
+            type: ""
           };
       if (this.$route.path === "/auth" && user) {
         this.$router.replace("/");
